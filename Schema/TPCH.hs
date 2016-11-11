@@ -148,7 +148,9 @@ parts = table "part" ( "p_brand" :|
                      , "p_size"
                      , "p_type"
                      ])
-                     (TableHints (pure $ Key (pure "p_partkey") ) NonEmpty)
+                     p_partkeyQ
+                     (TableHints (pure $ Key (pure "p_partkey") ) NonEmpty
+                                 NoProvenance)
 
 suppliers :: Q [Supplier]
 suppliers = table "supplier"
@@ -160,7 +162,9 @@ suppliers = table "supplier"
                   , "s_phone"
                   , "s_suppkey"
                   ])
-                  (TableHints ( pure $  Key (pure "s_suppkey") ) NonEmpty)
+                  s_suppkeyQ
+                  (TableHints ( pure $  Key (pure "s_suppkey") ) NonEmpty
+                              NoProvenance)
 
 partsupps :: Q [PartSupp]
 partsupps = table "partsupp"
@@ -170,7 +174,9 @@ partsupps = table "partsupp"
                   , "ps_suppkey"
                   , "ps_supplycost"
                   ])
-                  (TableHints (pure $ Key ("ps_partkey" :| ["ps_suppkey"])) NonEmpty)
+                  ps_partkeyQ
+                  (TableHints (pure $ Key ("ps_partkey" :| ["ps_suppkey"]))
+                              NonEmpty NoProvenance)
 
 nations :: Q [Nation]
 nations = table "nation"
@@ -179,7 +185,9 @@ nations = table "nation"
                 , "n_nationkey"
                 , "n_regionkey"
                 ])
-                (TableHints (pure $ Key (pure "n_nationkey")) NonEmpty)
+                n_nationkeyQ
+                (TableHints (pure $ Key (pure "n_nationkey")) NonEmpty
+                            NoProvenance)
 
 regions :: Q [Region]
 regions = table "region"
@@ -187,7 +195,9 @@ regions = table "region"
                 [ "r_name"
                 , "r_regionkey"
                 ])
-                (TableHints (pure $ Key (pure "r_regionkey")) NonEmpty)
+                r_regionkeyQ
+                (TableHints (pure $ Key (pure "r_regionkey")) NonEmpty
+                            NoProvenance)
 
 orders :: Q [Order]
 orders = table "orders"
@@ -201,7 +211,9 @@ orders = table "orders"
                , "o_shippriority"
                , "o_totalprice"
                ])
-               (TableHints (pure $ Key (pure "o_orderkey")) NonEmpty)
+               o_orderkeyQ
+               (TableHints (pure $ Key (pure "o_orderkey")) NonEmpty
+                           NoProvenance)
 
 lineitems :: Q [LineItem]
 lineitems = table "lineitem"
@@ -222,7 +234,9 @@ lineitems = table "lineitem"
                   , "l_suppkey"
                   , "l_tax"
                   ])
-                  (TableHints (pure $ Key ("l_orderkey" :| ["l_linenumber"])) NonEmpty)
+                  l_orderkeyQ
+                  (TableHints (pure $ Key ("l_orderkey" :| ["l_linenumber"]))
+                              NonEmpty NoProvenance)
 
 customers :: Q [Customer]
 customers = table "customer"
@@ -235,7 +249,6 @@ customers = table "customer"
                   , "c_nationkey"
                   , "c_phone"
                   ])
-                  (TableHints (pure $ Key (pure "c_custkey")) NonEmpty)
-
-
-
+                  c_custkeyQ
+                  (TableHints (pure $ Key (pure "c_custkey"))
+                              NonEmpty NoProvenance)

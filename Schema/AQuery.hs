@@ -39,12 +39,15 @@ trades = table "trades"
                 , "tid"
                 , "ts"
                 , "tradeDate"])
-               (TableHints (pure $ Key ("tid" :| ["ts"])) NonEmpty)
+               t_tidQ
+               (TableHints (pure $ Key ("tid" :| ["ts"])) NonEmpty NoProvenance)
 
 portfolios :: Q [Portfolio]
 portfolios = table "portfolio"
                    ("po_pid" :| ["po_tid", "po_tradedSince"])
-                   (TableHints (pure $ Key (pure "po_pid")) NonEmpty)
+                   po_pidQ
+                   (TableHints (pure $ Key (pure "po_pid")) NonEmpty
+                               NoProvenance)
 
 data Packet = Packet
     { p_dest :: Integer
@@ -66,4 +69,5 @@ packets = table "packets"
                  , "src"
                  , "ts"
                  ])
-                (TableHints (pure $ Key (pure "pid")) NonEmpty)
+                p_pidQ
+                (TableHints (pure $ Key (pure "pid")) NonEmpty NoProvenance)

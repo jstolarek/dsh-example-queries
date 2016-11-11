@@ -26,7 +26,8 @@ generateTableSelectors ''Department
 departments :: Q [Department]
 departments = table "departments"
                      ("id" :| ["dpt"])
-                     (defaultHints $ pure $ Key (pure "id") )
+                     d_idQ
+                     (defaultHints $ pure $ Key (pure "id"))
 
 data Employee = Employee
     { e_id     :: Integer
@@ -42,6 +43,7 @@ generateTableSelectors ''Employee
 employees :: Q [Employee]
 employees = table "employees"
                   ("id" :| ["dpt", "name", "salary"])
+                  e_idQ
                   (defaultHints $ pure $ Key (pure "id"))
 
 data Task = Task
@@ -57,6 +59,7 @@ generateTableSelectors ''Task
 tasks :: Q [Task]
 tasks = table "tasks"
               ("emp" :| ["id", "tsk"])
+              t_idQ
               (defaultHints $ pure $ Key $ pure "id")
 
 data Contact = Contact
@@ -73,4 +76,5 @@ generateTableSelectors ''Contact
 contacts :: Q [Contact]
 contacts = table "contacts"
                  ("client" :| ["dpt", "id", "name"])
+                 c_idQ
                  (defaultHints $ pure $ Key $ pure "id")

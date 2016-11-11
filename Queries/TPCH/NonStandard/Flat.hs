@@ -148,16 +148,19 @@ nf2Qd = [ tup3 ok m1 m2
 r1 :: Q [(Integer, Integer, Integer, Integer)]
 r1 = table "r1"
            ("a" :| ["b", "c", "d"])
+           tup4_1
            (defaultHints $ pure $ Key (pure "a"))
 
 r2 :: Q [(Integer, Integer, Integer, Integer, Integer)]
 r2 = table "r2"
            ("e" :| ["f", "g", "h", "i"])
+           tup5_1
            (defaultHints $ pure $ Key (pure "e"))
 
 r3 :: Q [(Integer, Integer, Integer)]
 r3 = table "r3"
            ("j" :| ["k", "l"])
+           tup3_1
            (defaultHints $ pure $ Key (pure "j"))
 
 -- Example query Q1 from the paper 'SQL Query Optimization through Nested
@@ -181,16 +184,16 @@ crossLevelCorr =
 
 --------------------------------------------------------------------------------
 ws :: Q [Integer]
-ws = table "ws" ("w" :| []) (defaultHints $ pure $ Key (pure "w"))
+ws = table "ws" ("w" :| []) id (defaultHints $ pure $ Key (pure "w"))
 
 xs :: Q [Integer]
-xs = table "xs" ("x" :| []) (defaultHints $ pure $ Key (pure "x"))
+xs = table "xs" ("x" :| []) id (defaultHints $ pure $ Key (pure "x"))
 
 ys :: Q [Integer]
-ys = table "ys" ("y" :| []) (defaultHints $ pure $ Key (pure "y"))
+ys = table "ys" ("y" :| []) id (defaultHints $ pure $ Key (pure "y"))
 
 zs :: Q [Integer]
-zs = table "zs" ("z" :| []) (defaultHints $ pure $ Key (pure "z"))
+zs = table "zs" ("z" :| []) id (defaultHints $ pure $ Key (pure "z"))
 
 depthThree :: Q [[[Integer]]]
 depthThree =
